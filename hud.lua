@@ -71,6 +71,8 @@ local function DrawIcon( icon , x , y, w, h, clr )
 
 end
 
+local main_frame_color = Color(30, 30, 30, 255)
+
 hook.Add("HUDPaint", "DrawMyHud", function()
 local ply = LocalPlayer()
 
@@ -88,11 +90,11 @@ local cash_icon = Material( "icon16/money.png" )
 local haveArmor = false
 
 if ply:Armor() > 0 then haveArmor = true end
-local Avatar = vgui.Create("AvatarImage") 
+--local Avatar = vgui.Create("AvatarImage") 
 
-Avatar:SetSize(80, 80)
-Avatar:SetPos(ScrW() - 1890, ScrH() - 200) 
-Avatar:SetPlayer(ply, 64)
+--Avatar:SetSize(80, 80)
+--Avatar:SetPos(ScrW() - 1890, ScrH() - 200) 
+--Avatar:SetPlayer(ply, 64)
 
 local main_frame_H = 155
 
@@ -125,7 +127,7 @@ else
 end
 
 
-draw.RoundedBox(6, ScrW() - 1900, ScrH() - 210, 312, main_frame_H, Color(30, 30, 30, 255)) -- main frame
+draw.RoundedBox(6, ScrW() - 1900, ScrH() - 210, 312, main_frame_H, main_frame_color) -- main frame
 
 draw.RoundedBox(0, ScrW() - 1893, ScrH() - 203, 86, 86, Color(90, 90, 90, 255)) -- outline of the avatar
 
@@ -150,5 +152,52 @@ draw.DrawText(tostring(ply:Health()), "infoLarge", ScrW() - 1745, ScrH() - 95, C
 
 DrawIcon(cash_icon, ScrW() - 1802, ScrH() - 132, 15, 15, Color(255,255,255,255)) -- displaying cash icon 
 
+-- HUD mod configuration panel
+local PANEL = {}
 
+local function OpenConfigPanel()
+    local configPanel = vgui.Create("DFrame")
+    configPanel:SetSize(250, 200)
+    configPanel:SetPos(ScrW() / 2 - configPanel:GetWide() / 2, ScrH() / 2 - configPanel:GetTall() / 2)
+    configPanel:SetTitle("HUD Configuration")
+    configPanel:SetDraggable(true)
+    configPanel:ShowCloseButton(true)
+    
+    local colorMixer = vgui.Create("DColorMixer", configPanel)
+    colorMixer:SetPos(10, 30)
+    colorMixer:SetSize(230, 140)
+    colorMixer:SetPalette(false)
+    colorMixer:SetAlphaBar(false)
+    colorMixer:SetWangs(true)
+    colorMixer:SetColor(main_frame_color)
+    
+    local doneButton = vgui.Create("DButton", configPanel)
+    doneButton:SetText("Done")
+    doneButton:SetPos(10, 175)
+    doneButton:SetSize(230, 20)
+    doneButton.DoClick = function()
+        main_frame_color = colorMixer:GetColor()
+        configPanel:Close()
+    end
+    
+    configPanel:MakePopup()
+end
+
+concommand.Add("hud_config", OpenConfigPanel)
+
+
+vgui.Register("HUDConfigPanel", PANEL, "DFrame")
+
+
+-- Chat command to open the configuration panel
+concommand.Add("hud_config", OpenConfigPanel)
+
+-- Display HUD config panel on chat command "!hud"
+local function ChatCommandHandler(ply, text)
+    if text == "!hud" then
+        OpenConfigPanel()
+    end
+end
+
+hook.Add("OnPlayerChat", "HUDConfigChatCommand", ChatCommandHandler)
 end)
