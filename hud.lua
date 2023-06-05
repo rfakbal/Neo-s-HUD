@@ -134,7 +134,7 @@ draw.RoundedBox(0, ScrW() - 1893, ScrH() - 203, 86, 86, Color(90, 90, 90, 255)) 
 if haveArmor then
    draw.RoundedBox(0, ScrW()-1892, ScrH()-60, 294, 24, Color(90, 90, 90, 255)) -- outline of the armor bar
    draw.RoundedBox(0, ScrW() - 1890, ScrH() - 58, armor_length, 20, Color(0, 130, 255, 255))  -- armor bar
-   draw.DrawText(tostring(ply:Armor()), "infoXLarge", ScrW() - 1745, ScrH() - 60, Color(255, 255, 255), TEXT_ALIGN_CENTER) -- health text
+   draw.DrawText(tostring(ply:Armor()), "infoLarge", ScrW() - 1745, ScrH() - 60, Color(255, 255, 255), TEXT_ALIGN_CENTER) -- armor text
 end
 
 if string.len(ply:Name()) > 19 then
@@ -170,21 +170,23 @@ local function OpenConfigPanel()
     colorMixer:SetAlphaBar(false)
     colorMixer:SetWangs(true)
     colorMixer:SetColor(main_frame_color)
-    
-    local doneButton = vgui.Create("DButton", configPanel)
-    doneButton:SetText("Done")
-    doneButton:SetPos(10, 175)
-    doneButton:SetSize(230, 20)
-    doneButton.DoClick = function()
-        main_frame_color = colorMixer:GetColor()
-        configPanel:Close()
+    colorMixer.ValueChanged = function(self, newColor)
+        main_frame_color = newColor
+    end
+
+    local defaultButton = vgui.Create("DButton", configPanel)
+    defaultButton:SetText("Default")
+    defaultButton:SetPos(10, 180)
+    defaultButton:SetSize(100, 30)
+    defaultButton.DoClick = function()
+        main_frame_color = Color(30, 30, 30, 255) -- Set the default color
+        colorMixer:SetColor(main_frame_color) -- Update the color in the color mixer
     end
     
     configPanel:MakePopup()
 end
 
 concommand.Add("hud_config", OpenConfigPanel)
-
 
 vgui.Register("HUDConfigPanel", PANEL, "DFrame")
 
