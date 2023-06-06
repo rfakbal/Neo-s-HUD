@@ -1,3 +1,4 @@
+include("fonts.lua")
 local hide = {
    ["DarkRP_LocalPlayerHUD"] = true,
    ["CHudDeathNotice"] = true,
@@ -131,7 +132,7 @@ local enableOutline = false
       colorMixer:SetSize(230, 140)
       colorMixer:SetPalette(false)
       colorMixer:SetAlphaBar(false)
-      colorMixer:SetWang   s(true)
+      colorMixer:SetWangs(true)
       colorMixer:SetColor(main_frame_color)
       colorMixer.ValueChanged = function(self, newColor)
       main_frame_color = newColor
