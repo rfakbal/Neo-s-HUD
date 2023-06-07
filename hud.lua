@@ -21,6 +21,7 @@ end
 local main_frame_color = Color(30, 30, 30, 255)
 
 local enableOutline = false
+local enableAvatar = true
 
    hook.Add("HUDPaint", "DrawMyHud", function()
    
@@ -40,11 +41,16 @@ local enableOutline = false
    local haveArmor = false
    
    if ply:Armor() > 0 then haveArmor = true end
-   --local Avatar = vgui.Create("AvatarImage")
-   
-   --Avatar:SetSize(80, 80)
-   --Avatar:SetPos(ScrW() - 1890, ScrH() - 200)
-   --Avatar:SetPlayer(ply, 64)
+   local AvatarPanel = vgui.Create( "DFrame" )
+   local Avatar = vgui.Create("AvatarImage")
+   if enableAvatar then 
+      Avatar:SetSize(80, 80)
+      Avatar:SetPos(ScrW() - 1890, ScrH() - 200)
+      Avatar:SetPlayer(ply, 64)
+   else 
+     -- Avatar:Remove()
+   end
+
    
    local main_frame_H = 155
    
@@ -123,8 +129,16 @@ local enableOutline = false
       enableOutlineCheckbox:SetPos(10, 180)
       enableOutlineCheckbox:SetText("Enable Outline")
       enableOutlineCheckbox:SetValue(enableOutline)
-      enableOutlineCheckbox.OnChange = function(_, value)
-      enableOutline = value
+      enableOutlineCheckbox.OnChange = function(_, value_1)
+      enableOutline = value_1
+   end
+   local enableAvatarCheckbox = vgui.Create("DCheckBoxLabel", configPanel)
+      enableAvatarCheckbox:SetPos(10, 220)
+      enableAvatarCheckbox:SetText("Enable Avatar")
+      enableAvatarCheckbox:SetValue(enableAvatar)
+      enableAvatarCheckbox.OnChange = function(_, value_2)
+      enableAvatar = value_2
+
    end
    
    local colorMixer = vgui.Create("DColorMixer", configPanel)
