@@ -18,10 +18,12 @@ local function DrawIcon( icon , x , y, w, h, clr )
 
 end
 
+local scrw = 1920
+local scrh = ScrH()
+
 local main_frame_color = Color(30, 30, 30, 255)
 
 local enableOutline = false
-local enableAvatar = true
 
    hook.Add("HUDPaint", "DrawMyHud", function()
    
@@ -41,22 +43,16 @@ local enableAvatar = true
    local haveArmor = false
    
    if ply:Armor() > 0 then haveArmor = true end
-   local AvatarPanel = vgui.Create( "DFrame" )
-   local Avatar = vgui.Create("AvatarImage")
-   if enableAvatar then 
-      Avatar:SetSize(80, 80)
-      Avatar:SetPos(ScrW() - 1890, ScrH() - 200)
-      Avatar:SetPlayer(ply, 64)
-   else 
-     -- Avatar:Remove()
-   end
-
+   --local Avatar = vgui.Create("AvatarImage")
+      --Avatar:SetSize(80, 80)
+     -- Avatar:SetPos(scrw - 1890, scrh - 200)
+     -- Avatar:SetPlayer(ply, 64)
    
    local main_frame_H = 155
    
    if enableOutline then
       surface.SetDrawColor(15,15,15)
-      surface.DrawOutlinedRect(ScrW() - 1903, ScrH() - 213, 318, main_frame_H+6, 3) -- main frame outline
+      surface.DrawOutline(scrw - 1903, scrh - 213, 318, main_frame_H+6, 3) -- main frame outline
    end
    
    
@@ -67,7 +63,7 @@ local enableAvatar = true
       end
    end
    
-   draw.RoundedBox(6,  ScrW() - 245, ScrH() - 145, 155, 90, main_frame_color) -- ammo frame
+   draw.RoundedBox(6,  scrw - 245, scrh - 145, 155, 90, main_frame_color) -- ammo frame
    
    if ply:GetActiveWeapon() != NULL then -- checks if player got any weapon
       local ammo_in_clip -- ammo value of the current mag/clip
@@ -81,38 +77,38 @@ local enableAvatar = true
          clip_amount = "/"..ply:GetAmmoCount( ply:GetActiveWeapon():GetPrimaryAmmoType() )
       end
    
-      draw.DrawText( ammo_in_clip..clip_amount ,"infoXLarge", ScrW() - 167, ScrH() - 123, Color( 255, 255, 255 ), TEXT_ALIGN_CENTER ) -- displays ammo in and out of mag with "/"
+      draw.DrawText( ammo_in_clip..clip_amount ,"infoXLarge", scrw - 167, scrh - 123, Color( 255, 255, 255 ), TEXT_ALIGN_CENTER ) -- displays ammo in and out of mag with "/"
    
    else
    
-      draw.DrawText( "F" ,"infoXLarge", ScrW() - 167, ScrH() - 78, Color( 255, 255, 255 ), TEXT_ALIGN_CENTER ) -- displays F if you are dead
+      draw.DrawText( "F" ,"infoXLarge", scrw - 167, scrh - 78, Color( 255, 255, 255 ), TEXT_ALIGN_CENTER ) -- displays F if you are dead
    end
    
    
-   draw.RoundedBox(0, ScrW() - 1900, ScrH() - 210, 312, main_frame_H, main_frame_color) -- main frame
+   draw.RoundedBox(0, 20, scrh - 210, 312, main_frame_H, main_frame_color) -- main frame
    
-   draw.RoundedBox(0, ScrW() - 1893, ScrH() - 203, 86, 86, Color(90, 90, 90, 255)) -- outline of the avatar
+   draw.RoundedBox(0, 27, scrh - 203, 86, 86, Color(90, 90, 90, 255)) -- outline of the avatar
    
    if haveArmor then
-      draw.RoundedBox(0, ScrW()-1892, ScrH()-60, 294, 24, Color(90, 90, 90, 255)) -- outline of the armor bar
-      draw.RoundedBox(0, ScrW() - 1890, ScrH() - 58, armor_length, 20, Color(0, 130, 255, 255))  -- armor bar
-      draw.DrawText(tostring(ply:Armor()), "infoLarge", ScrW() - 1745, ScrH() - 60, Color(255, 255, 255), TEXT_ALIGN_CENTER) -- armor text
+      draw.RoundedBox(0, 28, scrh-60, 294, 24, Color(90, 90, 90, 255)) -- outline of the armor bar
+      draw.RoundedBox(0, 30, scrh - 58, armor_length, 20, Color(0, 130, 255, 255))  -- armor bar
+      draw.DrawText(tostring(ply:Armor()), "infoLarge", 175, scrh - 60, Color(255, 255, 255), TEXT_ALIGN_CENTER) -- armor text
    end
    
    if string.len(ply:Name()) > 19 then
-      draw.DrawText(ply:Name(), "infoSmall", ScrW() - 1800, ScrH() - 203, Color(255, 255, 255), TEXT_ALIGN_LEFT) -- name (resized)
+      draw.DrawText(ply:Name(), "infoSmall", 120, scrh - 203, Color(255, 255, 255), TEXT_ALIGN_LEFT) -- name (resized)
    else
-      draw.DrawText(ply:Name(), "infoLarge", ScrW() - 1800, ScrH() - 203, Color(255, 255, 255), TEXT_ALIGN_LEFT) -- name (original size)
+      draw.DrawText(ply:Name(), "infoLarge", 120, scrh - 203, Color(255, 255, 255), TEXT_ALIGN_LEFT) -- name (original size)
    end
    
-   draw.DrawText("Job: "..ply:getDarkRPVar( "job" ), "infoLarge", ScrW() - 1800, ScrH() - 180, Color(255, 255, 255), TEXT_ALIGN_LEFT) -- job
-   draw.DrawText("Salary: "..ply:getDarkRPVar( "salary" ).." $", "infoLarge", ScrW() - 1800, ScrH() - 160, Color(255, 255, 255), TEXT_ALIGN_LEFT) -- salary
-   draw.DrawText( ply:getDarkRPVar("money").." $", "infoLarge", ScrW() - 1780,  ScrH() - 137, Color( 255, 255, 255, 255 ), TEXT_ALIGN_LEFT) -- money
-   draw.RoundedBox(0, ScrW() - 1892, ScrH() - 97, 294, 29, Color(90, 90, 90, 255)) -- outline of the health bar
-   draw.RoundedBox(0, ScrW() - 1890, ScrH() - 95, health_length, 25, Color(220, 45, 45, 255)) -- health bar
-   draw.DrawText(tostring(ply:Health()), "infoLarge", ScrW() - 1745, ScrH() - 95, Color(255, 255, 255), TEXT_ALIGN_CENTER) -- health text
+   draw.DrawText(ply:getDarkRPVar( "job" ), "infoLarge", 120, scrh - 180, Color(255, 255, 255), TEXT_ALIGN_LEFT) -- job
+   draw.DrawText(ply:getDarkRPVar( "salary" ).." $", "infoLarge", 280, scrh - 137, Color(255, 255, 255), TEXT_ALIGN_LEFT) -- salary
+   draw.DrawText( ply:getDarkRPVar("money").." $", "infoLarge", 138,  scrh - 137, Color( 255, 255, 255, 255 ), TEXT_ALIGN_LEFT) -- money
+   draw.RoundedBox(0, 28, scrh - 97, 294, 29, Color(90, 90, 90, 255)) -- outline of the health bar
+   draw.RoundedBox(0, 30, scrh - 95, health_length, 25, Color(220, 45, 45, 255)) -- health bar
+   draw.DrawText(tostring(ply:Health()), "infoLarge", 175, scrh - 95, Color(255, 255, 255), TEXT_ALIGN_CENTER) -- health text
    
-   DrawIcon(cash_icon, ScrW() - 1802, ScrH() - 132, 15, 15, Color(255,255,255,255)) -- displaying cash icon
+   DrawIcon(cash_icon, 118, scrh - 132, 15, 15, Color(255,255,255,255)) -- displaying cash icon
 
 
    local PANEL = {} -- HUD configuration panel
@@ -131,14 +127,6 @@ local enableAvatar = true
       enableOutlineCheckbox:SetValue(enableOutline)
       enableOutlineCheckbox.OnChange = function(_, value_1)
       enableOutline = value_1
-   end
-   local enableAvatarCheckbox = vgui.Create("DCheckBoxLabel", configPanel)
-      enableAvatarCheckbox:SetPos(10, 220)
-      enableAvatarCheckbox:SetText("Enable Avatar")
-      enableAvatarCheckbox:SetValue(enableAvatar)
-      enableAvatarCheckbox.OnChange = function(_, value_2)
-      enableAvatar = value_2
-
    end
    
    local colorMixer = vgui.Create("DColorMixer", configPanel)
