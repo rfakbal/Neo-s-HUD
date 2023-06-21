@@ -43,16 +43,16 @@ local enableOutline = false
    local haveArmor = false
    
    if ply:Armor() > 0 then haveArmor = true end
-   --local Avatar = vgui.Create("AvatarImage")
-      --Avatar:SetSize(80, 80)
-     -- Avatar:SetPos(scrw - 1890, scrh - 200)
-     -- Avatar:SetPlayer(ply, 64)
+   local Avatar = vgui.Create("AvatarImage")
+      Avatar:SetSize(80, 80)
+      Avatar:SetPos(scrw - 1890, scrh - 200)
+      Avatar:SetPlayer(ply, 64)
    
    local main_frame_H = 155
    
    if enableOutline then
       surface.SetDrawColor(15,15,15)
-      surface.DrawOutline(scrw - 1903, scrh - 213, 318, main_frame_H+6, 3) -- main frame outline
+      surface.DrawOutlinedRect(scrw - 1903, scrh - 213, 318, main_frame_H+6, 3) -- main frame outline
    end
    
    
