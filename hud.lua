@@ -10,6 +10,8 @@ hook.Add("HUDShouldDraw", "HideDefaultDarkRPHud", function(name)
    if hide[name] then return false end
 end)
 
+local avdraw = true
+
 local function DrawIcon( icon , x , y, w, h, clr )
 
    surface.SetMaterial( icon )
@@ -44,17 +46,15 @@ local enableOutline = false
    
    if ply:Armor() > 0 then haveArmor = true end
       
-   local Avatar = vgui.Create("AvatarImage")
-   Avatar:SetSize(80, 80)
-   Avatar:SetPos(scrw - 1890, scrh - 200)
-   Avatar:SetPlayer(ply, 64)
+   if avdraw then
+      local Avatar = vgui.Create("AvatarImage")
+      Avatar:SetSize(80, 80)
+      Avatar:SetPos(scrw - 1890, scrh - 200)
+      Avatar:SetPlayer(ply, 64)
+      avdraw = false
+   end
    
    local main_frame_H = 155
-   
-   if enableOutline then
-      surface.SetDrawColor(15,15,15)
-      surface.DrawOutlinedRect(scrw - 1903, scrh - 213, 318, main_frame_H+6, 3) -- main frame outline
-   end
    
    
    if haveArmor then
@@ -64,6 +64,13 @@ local enableOutline = false
       end
    end
    
+   if enableOutline then
+      surface.SetDrawColor(15,15,15)
+      surface.DrawOutlinedRect(scrw - 1903, scrh - 213, 318, main_frame_H+6, 3) -- main frame outline
+      surface.DrawOutlinedRect(scrw - 1903, scrh - 213, 318, main_frame_H+6, 3)
+   end
+
+
    draw.RoundedBox(6,  scrw - 245, scrh - 145, 155, 90, main_frame_color) -- ammo frame
    
    if ply:GetActiveWeapon() != NULL then -- checks if player got any weapon
@@ -139,6 +146,15 @@ local enableOutline = false
       colorMixer:SetColor(main_frame_color)
       colorMixer.ValueChanged = function(self, newColor)
       main_frame_color = newColor
+   end
+
+   local restoreButton = vgui.Create("DButton", configPanel)
+   restoreButton:SetPos(10, 220)
+   restoreButton:SetSize(230, 20)
+   restoreButton:SetText("Restore to Default")
+   restoreButton.DoClick = function()
+      main_frame_color = Color(30, 30, 30, 255)
+      colorMixer:SetColor(main_frame_color)
    end
    
    
