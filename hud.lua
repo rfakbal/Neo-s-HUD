@@ -43,10 +43,11 @@ local enableOutline = false
    local haveArmor = false
    
    if ply:Armor() > 0 then haveArmor = true end
+      
    local Avatar = vgui.Create("AvatarImage")
-      Avatar:SetSize(80, 80)
-      Avatar:SetPos(scrw - 1890, scrh - 200)
-      Avatar:SetPlayer(ply, 64)
+   Avatar:SetSize(80, 80)
+   Avatar:SetPos(scrw - 1890, scrh - 200)
+   Avatar:SetPlayer(ply, 64)
    
    local main_frame_H = 155
    
@@ -57,7 +58,7 @@ local enableOutline = false
    
    
    if haveArmor then
-      main_frame_H = 180 -- edits main frame's height depends on the haveArmor condition
+      main_frame_H = 184 -- edits main frame's height depends on the haveArmor condition
       if armor_length > max_armor_Length then
          armor_length = max_armor_Length
       end
@@ -101,7 +102,7 @@ local enableOutline = false
       draw.DrawText(ply:Name(), "infoLarge", 120, scrh - 203, Color(255, 255, 255), TEXT_ALIGN_LEFT) -- name (original size)
    end
    
-   draw.DrawText(ply:getDarkRPVar( "job" ), "infoLarge", 120, scrh - 180, Color(255, 255, 255), TEXT_ALIGN_LEFT) -- job
+   draw.DrawText(ply:getDarkRPVar( "job" ), "infoLarge", 120, scrh - 175, Color(255, 255, 255), TEXT_ALIGN_LEFT) -- job
    draw.DrawText(ply:getDarkRPVar( "salary" ).." $", "infoLarge", 280, scrh - 137, Color(255, 255, 255), TEXT_ALIGN_LEFT) -- salary
    draw.DrawText( ply:getDarkRPVar("money").." $", "infoLarge", 138,  scrh - 137, Color( 255, 255, 255, 255 ), TEXT_ALIGN_LEFT) -- money
    draw.RoundedBox(0, 28, scrh - 97, 294, 29, Color(90, 90, 90, 255)) -- outline of the health bar
