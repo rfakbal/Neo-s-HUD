@@ -7,8 +7,9 @@ Neo's HUD is a simple DarkRP HUD that overrides Gmod's default DarkRP HUD. This 
 
 
 
+![Screenshot_3](https://github.com/RusenAkbal/Neo-s-HUD/assets/101585180/28a3c19e-4c0c-47f3-8c60-95b7c0dd2fbd)
 
-![Screenshot_3](https://github.com/RusenAkbal/Neo-s-HUD/assets/101585180/31ee0bde-6515-42a7-9bd3-ca3ab026af17)
+
 
 
 ### **Features:**
@@ -27,6 +28,7 @@ Neo's HUD is a simple DarkRP HUD that overrides Gmod's default DarkRP HUD. This 
 
 
 
-![color](https://github.com/RusenAkbal/Neo-s-HUD/assets/101585180/711da858-859f-4694-9817-379deccc1626)
+
+![color](https://github.com/RusenAkbal/Neo-s-HUD/assets/101585180/06481e3d-b0ea-449e-98cd-8f033a4b130d)
 
 
