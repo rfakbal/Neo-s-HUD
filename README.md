@@ -4,7 +4,7 @@ Neo's HUD is a simple DarkRP HUD that overrides Gmod's default DarkRP HUD. This 
 
 - You can customize the hud by typing "!hud" in game chat. That allows you to change hud's color and you can set hud "outlined"
 - Feel free to add me on [Steam](https://steamcommunity.com/profiles/76561198398369164) to give feedback, report bugs or anything else
-
+- [Click here to see Steam Workshop Page](https://steamcommunity.com/sharedfiles/filedetails/?id=2993024084)
 
 
 ![Screenshot_3](https://github.com/RusenAkbal/Neo-s-HUD/assets/101585180/28a3c19e-4c0c-47f3-8c60-95b7c0dd2fbd)
