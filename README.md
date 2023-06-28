@@ -17,6 +17,7 @@ Neo's HUD is a simple DarkRP HUD that overrides Gmod's default DarkRP HUD. This 
 - Health and armor bars
 - Basic configuration panel
 - Ammo status (Thanks for owain's [CleanHUD](https://garrysmods.org/download/57450/v12-clean-hud-in-the-hud#description) for helping me to handle it)
+- Gun license status
 
 ### **Planned to add:**
 
@@ -24,7 +25,6 @@ Neo's HUD is a simple DarkRP HUD that overrides Gmod's default DarkRP HUD. This 
 - Wanted status
 - Notification ui
 - Voting panel
-- Gun license status
 
 
 
