@@ -1,6 +1,6 @@
 include("fonts.lua")
 local hide = {
-   ["DarkRP_LocalPlayerHUD"] = true,
+   ["DarkRP_HUD"] = true,
    ["CHudDeathNotice"] = true,
    ["CHudAmmo"] = true,
    ["CHudSecondaryAmmo"] = true,
@@ -48,6 +48,7 @@ hook.Add("HUDPaint", "DrawMyHud", function()
    end -- imagine having 10000000000 hp, a lightsaber would appear on the screen lol .
    
    local cash_icon = Material( "icon16/money.png" )
+   local license_icon = Material("icon16/shield.png")
    local haveArmor = false
    
    if ply:Armor() > 0 then haveArmor = true end
@@ -121,8 +122,11 @@ hook.Add("HUDPaint", "DrawMyHud", function()
    draw.RoundedBox(0, 28, scrh - 97, 294, 29, Color(90, 90, 90, 255)) -- outline of the health bar
    draw.RoundedBox(0, 30, scrh - 95, health_length, 25, Color(220, 45, 45, 255)) -- health bar
    draw.DrawText(tostring(ply:Health()), "infoLarge", 175, scrh - 95, Color(255, 255, 255), TEXT_ALIGN_CENTER) -- health text
-   
+
    DrawIcon(cash_icon, 118, scrh - 132, 15, 15, Color(255,255,255,255)) -- displaying cash icon
+   if ply:getDarkRPVar("HasGunlicense") then
+   DrawIcon(license_icon, 118, scrh - 151, 15, 15, Color(255,255,255,255)) --
+   end
 
 
    local PANEL = {} -- HUD configuration panel
@@ -173,7 +177,7 @@ hook.Add("HUDPaint", "DrawMyHud", function()
    vgui.Register("HUDConfigPanel", PANEL, "DFrame")
    
    
-   
+
    concommand.Add("hud_config", OpenConfigPanel) -- chat command to open the configuration panel
    
    local function ChatCommandHandler(ply, text) -- display HUD config panel on chat command "!hud"
